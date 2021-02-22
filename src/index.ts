@@ -10,6 +10,7 @@ import {
     OcgType,
 } from "./type_core";
 import { OcgMessage } from "./type_message";
+import { OcgQuery, OcgQueryField } from "./type_query";
 
 export * from "./type_message";
 export * from "./type_core";
@@ -83,7 +84,7 @@ function verifyType(fname: string, name: string, value: any, type: string) {
 function verifyTypeIf(fname: string, name: string, value: any, type: string) {
     if (typeof value !== "undefined" && typeof value !== type) {
         throw new TypeError(
-            `${fname}: "${name}" has wrong type, ${type} expected`
+            `${fname}: "${name}" has wrong type, ${type} or undefined expected`
         );
     }
 }
@@ -252,4 +253,46 @@ export function duelProcess(duel: OcgDuelHandle): OcgProcessResult {
 export function duelGetMessage(duel: OcgDuelHandle): OcgMessage[] {
     verifyType("duelProcess", "duel", duel, "object");
     return native.duelGetMessage(duel);
+}
+
+export function duelQueryCount(
+    duel: OcgDuelHandle,
+    player: number,
+    location: OcgLocation
+): number {
+    verifyType("duelQueryCount", "duel", duel, "object");
+    verifyType("duelQueryCount", "player", duel, "number");
+    verifyType("duelQueryCount", "location", duel, "number");
+    return native.duelQueryCount(duel, player, location);
+}
+
+export function duelQuery(
+    duel: OcgDuelHandle,
+    controller: number,
+    location: OcgLocation,
+    sequence: number,
+    overlayIndex?: number
+): OcgQuery {
+    verifyType("duelQuery", "duel", duel, "object");
+    verifyType("duelQuery", "controller", controller, "number");
+    verifyType("duelQuery", "location", location, "number");
+    verifyType("duelQuery", "sequence", sequence, "number");
+    verifyTypeIf("duelQuery", "overlayIndex", overlayIndex, "number");
+    return native.duelQuery(duel, controller, location, sequence, overlayIndex);
+}
+
+export function duelQueryLocation(
+    duel: OcgDuelHandle,
+    controller: number,
+    location: OcgLocation
+): OcgQuery[] {
+    verifyType("duelQuery", "duel", duel, "object");
+    verifyType("duelQuery", "controller", controller, "number");
+    verifyType("duelQuery", "location", location, "number");
+    return native.duelQueryLocation(duel, controller, location);
+}
+
+export function duelQueryField(duel: OcgDuelHandle): OcgQueryField {
+    verifyType("duelQueryField", "duel", duel, "object");
+    return native.duelQueryField(duel);
 }

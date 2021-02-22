@@ -549,7 +549,7 @@ export interface OcgMessageAddCounter {
     type: OcgMessageType.ADD_COUNTER;
     counter_type: number;
     controller: number;
-    location: number;
+    location: OcgLocation;
     sequence: number;
     count: number;
 }
@@ -557,7 +557,7 @@ export interface OcgMessageRemoveCounter {
     type: OcgMessageType.REMOVE_COUNTER;
     counter_type: number;
     controller: number;
-    location: number;
+    location: OcgLocation;
     sequence: number;
     count: number;
 }
@@ -687,6 +687,7 @@ export interface OcgFieldPlayer {
 }
 export interface OcgMessageReloadField {
     type: OcgMessageType.RELOAD_FIELD;
+    flags: OcgDuelMode;
     players: [OcgFieldPlayer, OcgFieldPlayer];
     chain: OcgChain[];
 }

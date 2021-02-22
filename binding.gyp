@@ -3,8 +3,10 @@
         {
             "target_name": "native",
             "sources": [
-                "cpp/native.cc",
                 "cpp/buffer.cc",
+                "cpp/messages.cc",
+                "cpp/native.cc",
+                "cpp/query.cc",
                 "cpp/lua/lapi.c",
                 "cpp/lua/lauxlib.c",
                 "cpp/lua/lbaselib.c",
